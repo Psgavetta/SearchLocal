@@ -198,13 +198,17 @@ function ChangeDist(valDist){
 			appStr+='<tr>';
 			appStr+='<th>'+ListObj[ii].nome+'</th>';
 			appStr+='<td>'+ListObj[ii].desc+'</td>';
-			appStr+='<td>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</td>';
-			appStr+=' </tr>';
-				
+			if(((ListObj[ii].postiDisp*100)/ListObj[ii].totPosti)<10)
+				appStr+='<td style="color:red;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
+			else if(((ListObj[ii].postiDisp*100)/ListObj[ii].totPosti)<50)
+				appStr+='<td style="color:yellow;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
+			else
+				appStr+='<td style="color:green;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
+			appStr+='</tr>';
 		}
 		
 	}
-	$('#toPutRow').html(appStr);	
+	$( "table#DescLocali tbody" ).html(appStr).closest( "table#DescLocali" ).table( "refresh" );
 
 	
 	$( "#popupNested" ).popup( "close" );
@@ -256,7 +260,7 @@ lonBkup=position.coords.longitude;
 		  author: 'HPNeo'
 		},
 		infoWindow: {
-		  content: '<p>HTML Content</p>'
+		  content: '<p>Tua posizione</p>'
 		}
 	  });
 	  
@@ -295,7 +299,12 @@ lonBkup=position.coords.longitude;
 		appStr+='<tr>';
 		appStr+='<th>'+ListObj[ii].nome+'</th>';
 		appStr+='<td>'+ListObj[ii].desc+'</td>';
-		appStr+='<td>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</td>';
+		if(((ListObj[ii].postiDisp*100)/ListObj[ii].totPosti)<10)
+			appStr+='<td style="color:red;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
+		else if(((ListObj[ii].postiDisp*100)/ListObj[ii].totPosti)<50)
+			appStr+='<td style="color:yellow;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
+		else
+			appStr+='<td style="color:green;"><b>'+ListObj[ii].postiDisp+'/'+ListObj[ii].totPosti+'</b></td>';
 		appStr+='</tr>';
 		}
 		
