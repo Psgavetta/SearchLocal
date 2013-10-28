@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+        <link rel="stylesheet" type="text/css" href="jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.css" />
+
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+        
+		<script type="text/javascript" src="phonegap.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/googlemap.js"></script>
+		<script type="text/javascript" src="js/gmaps.js"></script>
+        <script src="jquery.mobile-1.3.2/jquery-1.10.2.min.js"></script>
+        <script src="jquery.mobile-1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <title>Test Connessione</title>
+    </head>
+    <body onload="Init()">
+    <!-- Start of first page: #one -->
+    <div data-role="page" id="one">
+		
+	<div data-role="popup" id="popupNested" data-theme="none">
+	 <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+		<div data-role="collapsible-set"  data-content-theme="c" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d" style="margin:0; width:250px;">
+			<div data-role="collapsible" data-inset="false">
+				<h2>Raggio di ricerca</h2>
+				<ul data-role="listview">
+					<li><a onclick="ChangeDist('1')" data-rel="dialog" >1Km</a></li>
+					<li><a onclick="ChangeDist('5')" data-rel="dialog">5Km</a></li>
+					<li><a onclick="ChangeDist('10')" data-rel="dialog">10Km</a></li>
+					<li><a onclick="ChangeDist('20')" data-rel="dialog">20Km</a></li>
+					<li><a onclick="ChangeDist('50')" data-rel="dialog">50Km</a></li>
+				</ul>
+			</div><!-- /collapsible -->
+			
+		</div><!-- /collapsible set -->
+	</div><!-- /popup -->
+
+	    <div data-role="header" id="PageHeader">
+		
+		<a href="#popupNested"  id="TastoMenu" data-rel="popup" data-role="button" data-inline="true" data-icon="bars" data-transition="pop">OPZIONI</a>
+		<h1>Multi-page</h1>
+		<a href="#" data-icon="search" class="ui-btn-right">CERCA</a>
+		
+	    </div><!-- /header -->
+	    <div data-role="content" >	
+		
+		<div id="map_canvas" style="position:relative;bottom:0;left:0;width:100%;height:300px;"><div style="width:100%;height:100%;text-align:center;vertical-align:middle;">Ricerca Posisizione in corso...</div></div>
+		
+		<table data-role="table" data-mode="reflow" class="ui-responsive table-stroke" id="DescLocali">
+			<thead>
+				<tr>
+				  <th data-priority="1">Nome</th>
+				  <th data-priority="2">Descrizione</th>
+				  <th data-priority="3">Posti disponibili</th>
+				</tr>
+			</thead>
+			<tbody>
+    
+			</tbody>
+		</table>
+	    </div><!-- /content -->
+	    <div data-role="footer" id="ConnectionStatus">
+            Stato connessione
+	    </div><!-- /footer -->
+     </div><!-- /page one -->
+
+    <!-- Start of second page: #popupGeo -->
+    <div data-role="page" id="popupGeo">
+
+	    <div data-role="header" data-theme="e">
+		    <h1>Esempio Geolocation</h1>
+	    </div><!-- /header -->
+
+	    <div data-role="content" data-theme="d">	
+		    <h2>Geolocation</h2>
+           <button id="ButtonGeo1" type="button" lat="" lon="" onclick="GetGeoLocation('ButtonGeo1')">Posizione utente</button>
+		    <p id="geolocation1"></p>
+			<button id="ButtonGeo2" type="button" lat="" lon="" onclick="GetGeoLocation('ButtonGeo2')">posizione locale 1</button>
+		    <p id="geolocation2"></p>
+			<button id="ButtonGeo3" type="button" lat="" lon="" onclick="GetGeoLocation('ButtonGeo3')">posizione locale 2</button>
+		    <p id="geolocation3"></p>
+			<button id="ButtonGeo4" type="button" lat="" lon="" onclick="GetGeoLocation('ButtonGeo4')">posizione locale 3</button>
+		    <p id="geolocation4"></p>
+			<label for="Distance">Distanza massima:</label>
+			<input type="number" data-clear-btn="false" name="Distance" id="Distance" value="">
+			<button type="button" onclick="gps_distance()">Distance</button>
+			<p id="geolocationDist"></p>
+			<div id="map_canvas" style="position:relative;bottom:0;left:0;width:100%;height:300px;">
+			</div>
+			
+		    <p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Indietro</a></p>	
+
+			
+			
+	    </div><!-- /content -->
+	
+	    <div data-role="footer">
+	    </div><!-- /footer -->
+    </div><!-- /page popup -->
+
+    <!-- Start of third page: #popupAcc -->
+    <div data-role="page" id="popupAcc">
+
+	    <div data-role="header" data-theme="e">
+		    <h1>Esempio Accelerometro</h1>
+	    </div><!-- /header -->
+
+	    <div data-role="content" data-theme="d">	
+		    <h2>Accelerometro</h2>
+            <select name="slider-flip-m" id="slider-flip-m" data-role="slider" data-mini="true" onchange="OnSelectionChange(this)">
+                <option value="off"selected="">No</option>
+                <option value="on" >Yes</option>
+            </select>
+            <p id="accelerometer"></p>
+		    <p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Indietro</a></p>	
+	    </div><!-- /content -->
+	
+	    <div data-role="footer">
+	    </div><!-- /footer -->
+    </div><!-- /page popup -->
+
+    <!-- Start of page: #popupStore -->
+    <div data-role="page" id="popupStore">
+
+	    <div data-role="header" data-theme="e">
+		    <h1>Esempio Accelerometro</h1>
+	    </div><!-- /header -->
+
+	    <div data-role="content" data-theme="d">	
+		    <h2>Storing</h2>
+		    <label for="textarea">Testo da salvare:</label>
+            <textarea cols="40" rows="8" name="textarea" id="TextToSave"></textarea>
+            <p>
+                <button type="button" onclick="StoreLocally()" >Salva</button>
+            </p>
+		    <p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Indietro</a></p>	
+	    </div><!-- /content -->
+	
+	    <div data-role="footer">
+	    </div><!-- /footer -->
+    </div><!-- /page popup -->
+    </body>
+     
+</html>
